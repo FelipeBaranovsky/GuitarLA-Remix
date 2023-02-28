@@ -1,23 +1,23 @@
 import {useLoaderData,Link} from '@remix-run/react'
-import {getPost} from '../../models/posts.server'
+import {getBlog} from '../../models/blogs.server'
 import {formatearFecha} from '../../utils/helpers'
 
 export async function loader({params}){
-    const {postUrl} = params;
-    const post = await getPost(postUrl)
-    if(post.data.length === 0){
+    const {blogUrl} = params;
+    const blog = await getBlog(blogUrl)
+    if(blog.data.length === 0){
         throw new Response('',{
             status: 404,
-            statusText: 'Post No Encontrado'
+            statusText: 'blog No Encontrado'
         })
     }
-    return post
+    return blog
 }
 
 export function meta({data}) {
     if(!data){
         return {
-            title: `GuitarLA - Post No Encontrado`,
+            title: `GuitarLA - blog No Encontrado`,
             description: "Blog del mundo de las guitarras, blog no encontrado"
         }
     }
@@ -27,9 +27,9 @@ export function meta({data}) {
     } 
   }
 
-function PostUrl() {
-    const post = useLoaderData()
-    const {titulo,contenido,imagen,publishedAt} = post.data[0].attributes
+function blogUrl() {
+    const blog = useLoaderData()
+    const {titulo,contenido,imagen,publishedAt} = blog.data[0].attributes
   return (
     <article className='post mt-3'>
         <img className='imagen' src={imagen.data.attributes.url} alt={`Imagen blog ${titulo}`} />
@@ -45,4 +45,4 @@ function PostUrl() {
   )
 }
 
-export default PostUrl
+export default blogUrl

@@ -1,6 +1,6 @@
 import {useLoaderData, Link} from '@remix-run/react'
-import {getPosts} from '~/models/posts.server'
-import ListadoPosts from '~/components/listado-posts'
+import {getBlogs} from '~/models/blogs.server'
+import ListadoBlogs from '~/components/listado-blogs'
 
 export function meta() {
   return {
@@ -10,16 +10,16 @@ export function meta() {
 }
 
 export async function loader(){
-  const posts = await getPosts()
-  return posts.data
+  const blogs = await getBlogs()
+  return blogs.data
 }
 
 function Blog() {
-  const posts = useLoaderData()
+  const blogs = useLoaderData()
   return (
     <>
-      <ListadoPosts
-          posts={posts}
+      <ListadoBlogs
+          blogs={blogs}
       />
       <div>
         <Link className='enlace' to={'/'}>Regresar</Link>

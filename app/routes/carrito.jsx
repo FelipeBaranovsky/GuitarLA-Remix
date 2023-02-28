@@ -41,10 +41,10 @@ function Carrito() {
                 carrito?.map(producto => (
                   <div key={producto.id} className='producto'>
                     <div>
-                      <img src={producto.imagen} alt={`Imagen del producto ${producto.titulo}`} />
+                      <img src={producto.imagen} alt={`Imagen del producto ${producto.nombre}`} />
                     </div>
                     <div>
-                      <p className='nombre'>{producto.titulo}</p>
+                      <p className='nombre'>{producto.nombre}</p>
                       <p>Cantidad:</p>
                       <select value={producto.cantidad} className='select' onChange={e => actCantidad({
                         cantidad: +e.target.value,

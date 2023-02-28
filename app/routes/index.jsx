@@ -1,12 +1,12 @@
 import {useLoaderData} from '@remix-run/react'
 import ListadoGuitarras from '~/components/listado-guitarras'
-import ListadoPosts from '~/components/listado-posts'
+import ListadoBlogs from '~/components/listado-blogs'
 import Curso from '~/components/curso'
 import {getGuitarras} from '../models/guitarras.server'
-import {getPosts} from '../models/posts.server'
+import {getBlogs} from '../models/blogs.server'
 import {getCurso} from '../models/curso.server'
 import stylesGuitarras from '../styles/guitarras.css'
-import stylesPosts from '../styles/blog.css'
+import stylesBlogs from '../styles/blog.css'
 import stylesCurso from '../styles/curso.css'
 
 export function meta() {
@@ -24,7 +24,7 @@ export function links() {
     },
     {
       rel: 'stylesheet',
-      href: stylesPosts
+      href: stylesBlogs
     },
     {
       rel: 'stylesheet',
@@ -34,21 +34,21 @@ export function links() {
 }
 
 export async function loader(){
-  const [guitarras,posts,curso] = await Promise.all([
+  const [guitarras,blogs,curso] = await Promise.all([
     getGuitarras(),
-    getPosts(),
+    getBlogs(),
     getCurso()
   ])
   return {
     guitarras: guitarras.data,
-    posts: posts.data,
+    blogs: blogs.data,
     curso: curso.data
   }
   }
 
 
 function Index() {
-  const {guitarras,posts,curso} = useLoaderData()
+  const {guitarras,blogs,curso} = useLoaderData()
   return (
     <>
       <main className='contenedor'>
@@ -60,8 +60,8 @@ function Index() {
         curso={curso?.attributes}
       />
       <section className='contenedor'>
-        <ListadoPosts
-          posts={posts}
+        <ListadoBlogs
+          blogs={blogs}
         />
       </section>
     </>

@@ -23,8 +23,8 @@ export function meta({data}) {
         }
     }
     return {
-        title: `GuitarLA - ${data.data[0].attributes.titulo}`,
-        description: "Coleccion de guitarras, guitarra ${data.data[0].attributes.titulo}"
+        title: `GuitarLA - ${data.data[0].attributes.nombre}`,
+        description: "Coleccion de guitarras, guitarra ${data.data[0].attributes.nombre}"
     } 
   }
 
@@ -32,7 +32,7 @@ function GuitarraUrl() {
     const {agregarCarrito} = useOutletContext()
     const [cantidad,setCantidad] = useState(0)
     const guitarra = useLoaderData()
-    const {titulo,descripcion,imagen,precio} = guitarra.data[0].attributes
+    const {nombre,descripcion,imagen,precio} = guitarra.data[0].attributes
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -43,26 +43,21 @@ function GuitarraUrl() {
         const guitarraSeleccionada = {
             id: guitarra.data[0].id,
             imagen: imagen.data.attributes.url,
-            titulo,
+            nombre,
             precio,
             cantidad
         }
         agregarCarrito(guitarraSeleccionada)
 
-
-        submit(
-            { action: "/" }
-          );
-
     }
   return (
     <div className='blog'>
-        <img className='imagen' src={imagen.data.attributes.url} alt={`Imagen de la guitarra ${titulo}`} />
+        <img className='imagen' src={imagen.data.attributes.url} alt={`Imagen de la guitarra ${nombre}`} />
         <div className='contenido'>
-            <h3>{titulo}</h3>
+            <h3>{nombre}</h3>
             <p className='texto'>{descripcion}</p>
             <p className='precio'>${precio}</p>
-            <form className='formulario' onSubmit={handleSubmit} action={'/'}>
+            <form className='formulario' onSubmit={handleSubmit}>
                 <label htmlFor="cantidad">Cantidad</label>
                 <select name="cantidad" id="cantidad" onChange={e => setCantidad(+e.target.value)}>
                     <option value="0">-- Seleccione --</option>
